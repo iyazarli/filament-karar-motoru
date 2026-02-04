@@ -223,62 +223,61 @@ if st.button("🚀 FİLAMENTLERİ DEĞERLENDIR", type="primary", use_container_w
     else:
         df["Skor_Normalize"] = 100.0
     
-    # Uyarı Sistemi
-    def olustur_uyari(row, donanim):
-        uyarilar = []
+    # Uyarı Sistemi - Orijinal Dosyadaki ile Aynı
+    def olustur_uyari(row, donanim, max_kullanici_nozzle):
+        uyari_listesi = []
+        filament_adi = row['Filament']
         
-        # 1. Kapalı kasa şartı
-        if row["KapaliKasaIhtiyaci"] > 70 and not donanim['kapali_kasa']:
-            uyarilar.append("⚠️ KAPALIBÖLME ŞART")
+        # UYARI 1: Kapalı kasa gereksinimi
+        if row['KapaliKasaIhtiyaci'] >= 80 and not donanim['kapali_kasa']:
+            uyari_listesi.append("⚠️ KAPALIBÖLME ŞART")
         
-        # 2. Kurutucu şartı
-        if row["NemHassasiyeti"] > 60 and not donanim['kurutma']:
-            uyarilar.append("⚠️ KURUTUCU ŞİDDETLE ÖNERİLİR")
+        # UYARI 2: Filament kurutucu gereksinimi
+        if row['NemHassasiyeti'] >= 80 and not donanim['kurutma']:
+            uyari_listesi.append("⚠️ KURUTUCU ŞİDDETLE ÖNERİLİR")
         
-        # 3. Sertleştirilmiş nozzle
-        if row["NozulAsindiricilik"] > 60 and not donanim['sert_nozul']:
-            uyarilar.append("⚠️ SERTLEŞTİRİLMİŞ NOZZLE ZORUNLU")
+        # UYARI 3: Sertleştirilmiş nozzle gereksinimi
+        if row['NozulAsindiricilik'] >= 80 and not donanim['sert_nozul']:
+            uyari_listesi.append("⚠️ SERTLEŞTİRİLMİŞ NOZZLE ZORUNLU")
         
-        # 4. Nozzle sıcaklığı - BASILAMAZ
-        if donanim['max_nozul_sicaklik'] < row["MinNozulSicaklik"]:
-            fark = row["MinNozulSicaklik"] - donanim['max_nozul_sicaklik']
-            uyarilar.append(f"❌ BASILAMAZ (Min {row['MinNozulSicaklik']:.0f}°C gerekli)")
+        # UYARI 4: Nozzle sıcaklık yetersizliği
+        if donanim['max_nozul_sicaklik'] < row['MinNozulSicaklik']:
+            uyari_listesi.append(f"❌ BASILAMAZ (Min {int(row['MinNozulSicaklik'])}°C gerekli)")
         
-        # 5. Yatak sıcaklığı kontrolü
-        if donanim['isitmali_yatak']:
-            if donanim['max_yatak_sicaklik'] < row["MinYatakSicaklik"]:
-                fark = row["MinYatakSicaklik"] - donanim['max_yatak_sicaklik']
-                uyarilar.append(f"⚠️ TABLA {row['MinYatakSicaklik']:.0f}°C+ GEREKLİ (Mevcut: {donanim['max_yatak_sicaklik']}°C)")
-        else:
-            if row["MinYatakSicaklik"] > 30:
-                uyarilar.append(f"⚠️ TABLA {row['MinYatakSicaklik']:.0f}°C+ GEREKLİ")
+        # UYARI 5: Tabla sıcaklık yetersizliği
+        tabla_sicaklik_gereksinimleri = {
+            'ABS': 100, 'ASA': 100, 'PC': 110, 'PC-ABS': 105, 'PC-CF': 115,
+            'PA6': 70, 'PA12': 70, 'PA612': 70, 'PA6-GF': 80, 'PA-CF': 80, 'PA12-CF': 80,
+            'PEEK': 140, 'PEI': 130, 'PEKK': 140, 'PPS': 120
+        }
+        for key, min_temp in tabla_sicaklik_gereksinimleri.items():
+            if key in filament_adi and donanim['isitmali_yatak']:
+                if donanim['max_yatak_sicaklik'] < min_temp:
+                    uyari_listesi.append(f"⚠️ TABLA {min_temp}°C+ GEREKLİ (Mevcut: {donanim['max_yatak_sicaklik']}°C)")
+                break
         
-        # 6. Bowden zorluğu
-        if donanim['bowden'] and row["BowdenZorlugu"] > 70:
-            uyarilar.append("⚠️ BOWDEN İLE ZOR")
+        # UYARI 6: Bowden ile zorlanma
+        if row['BowdenZorlugu'] >= 80 and donanim['bowden']:
+            uyari_listesi.append("⚠️ BOWDEN İLE ZOR")
         
-        # 7. Nozzle ölçüsü
-        if donanim['nozzle_olculeri']:
-            max_nozzle = max(donanim['nozzle_olculeri'])
-            if max_nozzle < row["MinNozzle"]:
-                uyarilar.append(f"⚠️ MIN {row['MinNozzle']:.1f}mm NOZZLE GEREKLİ")
+        # UYARI 7: Nozzle ölçüsü yetersizliği
+        if max_kullanici_nozzle < row['MinNozzle']:
+            uyari_listesi.append(f"⚠️ MIN {row['MinNozzle']}mm NOZZLE GEREKLİ")
         
-        # 8. Tabla uyumluluğu
-        en_iyi_tabla_uyum = 0
+        # UYARI 8: Tabla uyumsuzluğu
+        en_iyi_tabla_skor = 0
         for tabla in donanim['tablalar']:
-            tabla_uyum = row[tabla['kolon']]
-            if tabla_uyum > en_iyi_tabla_uyum:
-                en_iyi_tabla_uyum = tabla_uyum
+            tabla_skor = row[tabla['kolon']]
+            if tabla_skor > en_iyi_tabla_skor:
+                en_iyi_tabla_skor = tabla_skor
+        if en_iyi_tabla_skor < 60:
+            uyari_listesi.append("⚠️ TABLA UYUMLULUĞU DÜŞÜK")
         
-        if en_iyi_tabla_uyum < 50:
-            uyarilar.append("⚠️ TABLA UYUMLULUĞU DÜŞÜK")
-        
-        if not uyarilar:
-            return "✅ Sorunsuz"
-        return " | ".join(uyarilar)
+        return " | ".join(uyari_listesi) if uyari_listesi else "✅ Sorunsuz"
     
     # Uyarıları hesapla
-    df["Uyarilar"] = df.apply(lambda row: olustur_uyari(row, donanim), axis=1)
+    max_kullanici_nozzle = max(donanim['nozzle_olculeri']) if donanim['nozzle_olculeri'] else 0
+    df["Uyarilar"] = df.apply(lambda row: olustur_uyari(row, donanim, max_kullanici_nozzle), axis=1)
     
     # Sırala
     df = df.sort_values("Skor", ascending=False)
