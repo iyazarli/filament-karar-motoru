@@ -53,7 +53,7 @@ FILAMENT_DATA = [
     #   Asn: Aşınma direnci / Wear resistance
     # -------------------------------------------------------------------------
     # MEKANİK (7 kriter) / MECHANICAL (7 criteria):
-    #   Kat: Katman aderansı / Layer adhesion
+    #   Kat: Katman aderansı (yapışması) / Layer adhesion
     #   Sta: Boyutsal stabilite / Dimensional stability
     #   Esn: Esneklik / Flexibility
     #   Tit: Titreşim sönümleme / Vibration damping
@@ -62,13 +62,13 @@ FILAMENT_DATA = [
     #   Cek: Çekme mukavemeti / Tensile strength
     # -------------------------------------------------------------------------
     # BASKI (7 kriter) / PRINTING (7 criteria):
-    #   War: Warping direnci / Warping resistance
+    #   War: Bükülme (warping) direnci / Warping resistance
     #   Kol: Baskı kolaylığı / Print ease
-    #   Str: String oluşmaması / No stringing (higher = less string)
-    #   IlkK: İlk katman yapışma / First layer adhesion
-    #   Kop: Köprüleme / Bridging capability
-    #   Cik: Çıkıntı performansı / Overhang performance
-    #   BskH: Baskı hızı / Print speed capability
+    #   Str: İplik oluşmaması (temiz baskı) / No stringing (higher = less string)
+    #   IlkK: İlk katman yapışması / First layer adhesion
+    #   Kop: Köprüleme (bridging) yeteneği / Bridging capability
+    #   Cik: Çıkıntı (overhang) performansı / Overhang performance
+    #   BskH: Hızlı baskı yapabilme / Print speed capability
     # -------------------------------------------------------------------------
     # POST-PROCESSING (3 kriter) / POST-PROCESSING (3 criteria):
     #   Zim: Zımparalanabilirlik / Sandability
@@ -87,15 +87,15 @@ FILAMENT_DATA = [
     #   DesI: Destek ihtiyacı / Support requirement
     #   YatakI: Isıtmalı yatak ihtiyacı / Heated bed requirement (0-100, higher = more need)
     #   MinNoz: Minimum nozul sıcaklığı / Minimum nozzle temp (°C)
-    #   BowZor: Bowden zorluğu / Bowden difficulty (0-100, higher = harder with Bowden)
+    #   BowZor: Bowden ekstruder ile zorluk / Bowden difficulty (0-100, higher = harder with Bowden)
     # -------------------------------------------------------------------------
     # TABLA UYUMLULUK (6 kriter) / BED SURFACE COMPATIBILITY (6 criteria):
     #   Cam: Cam tabla / Glass bed (0-100, higher = better adhesion)
     #   PEI_S: PEI Smooth / PEI Smooth (0-100)
     #   PEI_T: PEI Textured / PEI Textured (0-100)
-    #   Build: BuildTak/PEX (0-100)
-    #   Garo: Garolite (FR4) (0-100)
-    #   PP: PP Sheet (0-100)
+    #   Build: BuildTak/PEX / BuildTak/PEX bed (0-100)
+    #   Garo: Garolite (FR4) / Garolite (FR4) bed (0-100)
+    #   PP: PP Sheet / PP Sheet bed (0-100)
     # -------------------------------------------------------------------------
     # NOZZLE (1 kriter) / NOZZLE (1 criterion):
     #   MinNozzle: Minimum önerilen nozzle (mm) / Minimum recommended nozzle (mm)
@@ -663,14 +663,14 @@ def main():
     kriterler = {
         # Dayanım / Durability
         "IsiDayanim": "Isı dayanımı",
-        "UVDayanim": "UV dayanımı",
+        "UVDayanim": "Ultraviyole (UV) dayanımı",
         "NemDayanim": "Nem dayanımı",
         "KimyasalDayanim": "Kimyasal dayanım",
         "DarbeDayanim": "Darbe dayanımı",
         "YukTasima": "Yük taşıma kapasitesi",
         "AsinmaDirenci": "Aşınma direnci",
         # Mekanik / Mechanical
-        "KatmanAderans": "Katman aderansı",
+        "KatmanAderans": "Katman aderansı (yapışması)",
         "BoyutsalStabilite": "Boyutsal stabilite / ölçü toleransı",
         "Esneklik": "Esneklik / yumuşaklık",
         "TitreisimSondumleme": "Titreşim / gürültü sönümleme",
@@ -678,9 +678,9 @@ def main():
         "YorulmaDayanimi": "Yorulma dayanımı (tekrarlı yük)",
         "CekmeMukavemeti": "Çekme mukavemeti",
         # Baskı / Printing
-        "WarpingDirenci": "Warping / eğilme direnci",
+        "WarpingDirenci": "Bükülme (warping) / eğilme direnci",
         "BaskiKolayligi": "Baskı kolaylığı",
-        "StringOlusumu": "String oluşmaması (temiz baskı)",
+        "StringOlusumu": "İplik oluşmaması (stringing - temiz baskı)",
         "IlkKatmanYapisma": "İlk katman yapışması",
         "KoprulemeYeteneği": "Köprüleme (bridging) yeteneği",
         "CikintiPerformansi": "Çıkıntı (overhang) performansı",
