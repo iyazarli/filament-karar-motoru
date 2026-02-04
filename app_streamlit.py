@@ -162,43 +162,72 @@ if st.button("🚀 FİLAMENTLERİ DEĞERLENDIR", type="primary", use_container_w
     for kriter, agirlik in USER_WEIGHTS.items():
         df["Skor"] += df[kriter] * agirlik
     
-    # Ceza sistemi
+    # Ceza sistemi - Orijinal dosyadaki tam sistem
+    # 1. Kapalı kasa cezası
     if not donanim['kapali_kasa']:
         df["Skor"] -= df["KapaliKasaIhtiyaci"] * 2
+    
+    # 2. Kurutma cezası
     if not donanim['kurutma']:
         df["Skor"] -= df["NemHassasiyeti"] * 2
+    
+    # 3. Sertleştirilmiş nozul cezası
     if not donanim['sert_nozul']:
         df["Skor"] -= df["NozulAsindiricilik"] * 3
+    
+    # 4. Isıtmalı yatak cezası
     if not donanim['isitmali_yatak']:
         df["Skor"] -= df["IsitmalıYatakIhtiyaci"] * 2.5
     elif donanim['max_yatak_sicaklik'] < 90:
         df["Skor"] -= df["IsitmalıYatakIhtiyaci"] * 1.5
     
-    # Nozzle sıcaklık cezası
+    # 5. Nozul sıcaklığı cezası
     for idx, row in df.iterrows():
         min_sicaklik = row["MinNozulSicaklik"]
         if donanim['max_nozul_sicaklik'] < min_sicaklik:
             ceza = 500 * (min_sicaklik - donanim['max_nozul_sicaklik'])
             df.loc[idx, "Skor"] -= ceza
+        elif donanim['max_nozul_sicaklik'] < min_sicaklik + 20:
+            df.loc[idx, "Skor"] -= 100
     
+    # 6. Bowden ekstruder cezası
     if donanim['bowden']:
         df["Skor"] -= df["BowdenZorlugu"] * 2
     
-    # Nozzle ölçüsü cezası
-    if donanim['nozzle_olculeri']:
-        max_kullanici_nozzle = max(donanim['nozzle_olculeri'])
-        for idx, row in df.iterrows():
-            if max_kullanici_nozzle < row["MinNozzle"]:
-                ceza = 100 * (row["MinNozzle"] - max_kullanici_nozzle) * 5
-                df.loc[idx, "Skor"] -= ceza
+    # 7. Nozzle ölçüsü cezası
+    max_kullanici_nozzle = max(donanim['nozzle_olculeri']) if donanim['nozzle_olculeri'] else 0
+    for idx, row in df.iterrows():
+        min_nozzle = row["MinNozzle"]
+        if max_kullanici_nozzle < min_nozzle:
+            ceza = 100 * (min_nozzle - max_kullanici_nozzle) * 5
+            df.loc[idx, "Skor"] -= ceza
     
-    # Küçük cezalar
+    # 8. Küçük sabit cezalar
     df["Skor"] -= df["Koku"] * 0.5
     df["Skor"] -= df["DestekIhtiyaci"] * 0.5
     
-    # Tabla bonusu
+    # 8.5. Tabla sıcaklık kontrolü cezası
+    tabla_sicaklik_gereksinimleri = {
+        'ABS': 100, 'ASA': 100, 'PC': 110, 'PC-ABS': 105, 'PC-CF': 115,
+        'Nylon': 70, 'PA6': 70, 'PA12': 70, 'PA612': 70, 'PA6-GF': 80, 'PA-CF': 80, 'PA12-CF': 80,
+        'PEEK': 140, 'PEI': 130, 'PEKK': 140, 'PPS': 120
+    }
+    
+    if donanim['isitmali_yatak']:
+        for idx, row in df.iterrows():
+            filament_adi = row['Filament']
+            for key, min_temp in tabla_sicaklik_gereksinimleri.items():
+                if key in filament_adi:
+                    if donanim['max_yatak_sicaklik'] < min_temp:
+                        ceza = 200 * (min_temp - donanim['max_yatak_sicaklik'])
+                        df.loc[idx, "Skor"] -= ceza
+                    break
+    
+    # 9. Tabla uyumluluk bonusu - En iyi tabla skorunu bul
     df["EnIyiTabla"] = 0
     df["EnIyiTablaIsim"] = ""
+    
+    max_kullanici_nozzle = max(donanim['nozzle_olculeri']) if donanim['nozzle_olculeri'] else 0
     
     for idx, row in df.iterrows():
         en_iyi_skor = 0
@@ -213,15 +242,6 @@ if st.button("🚀 FİLAMENTLERİ DEĞERLENDIR", type="primary", use_container_w
         df.loc[idx, "EnIyiTabla"] = en_iyi_skor
         df.loc[idx, "EnIyiTablaIsim"] = en_iyi_tabla
         df.loc[idx, "Skor"] += en_iyi_skor * 0.5
-    
-    # Normalizasyon
-    skor_min = df["Skor"].min()
-    skor_max = df["Skor"].max()
-    
-    if skor_max != skor_min:
-        df["Skor_Normalize"] = ((df["Skor"] - skor_min) / (skor_max - skor_min) * 100).round(1)
-    else:
-        df["Skor_Normalize"] = 100.0
     
     # Uyarı Sistemi - Orijinal Dosyadaki ile Aynı
     def olustur_uyari(row, donanim, max_kullanici_nozzle):
@@ -276,8 +296,16 @@ if st.button("🚀 FİLAMENTLERİ DEĞERLENDIR", type="primary", use_container_w
         return " | ".join(uyari_listesi) if uyari_listesi else "✅ Sorunsuz"
     
     # Uyarıları hesapla
-    max_kullanici_nozzle = max(donanim['nozzle_olculeri']) if donanim['nozzle_olculeri'] else 0
     df["Uyarilar"] = df.apply(lambda row: olustur_uyari(row, donanim, max_kullanici_nozzle), axis=1)
+    
+    # Normalizasyon
+    skor_min = df["Skor"].min()
+    skor_max = df["Skor"].max()
+    
+    if skor_max != skor_min:
+        df["Skor_Normalize"] = ((df["Skor"] - skor_min) / (skor_max - skor_min) * 100).round(1)
+    else:
+        df["Skor_Normalize"] = 100.0
     
     # Sırala
     df = df.sort_values("Skor", ascending=False)
