@@ -223,40 +223,105 @@ if st.button("🚀 FİLAMENTLERİ DEĞERLENDIR", type="primary", use_container_w
     else:
         df["Skor_Normalize"] = 100.0
     
+    # Uyarı Sistemi
+    def olustur_uyari(row, donanim):
+        uyarilar = []
+        
+        # 1. Kapalı kasa şartı
+        if row["KapaliKasaIhtiyaci"] > 70 and not donanim['kapali_kasa']:
+            uyarilar.append("⚠️ KAPALIBÖLME ŞART")
+        
+        # 2. Kurutucu şartı
+        if row["NemHassasiyeti"] > 60 and not donanim['kurutma']:
+            uyarilar.append("⚠️ KURUTUCU ŞİDDETLE ÖNERİLİR")
+        
+        # 3. Sertleştirilmiş nozzle
+        if row["NozulAsindiricilik"] > 60 and not donanim['sert_nozul']:
+            uyarilar.append("⚠️ SERTLEŞTİRİLMİŞ NOZZLE ZORUNLU")
+        
+        # 4. Nozzle sıcaklığı - BASILAMAZ
+        if donanim['max_nozul_sicaklik'] < row["MinNozulSicaklik"]:
+            fark = row["MinNozulSicaklik"] - donanim['max_nozul_sicaklik']
+            uyarilar.append(f"❌ BASILAMAZ (Min {row['MinNozulSicaklik']:.0f}°C gerekli)")
+        
+        # 5. Yatak sıcaklığı kontrolü
+        if donanim['isitmali_yatak']:
+            if donanim['max_yatak_sicaklik'] < row["MinYatakSicaklik"]:
+                fark = row["MinYatakSicaklik"] - donanim['max_yatak_sicaklik']
+                uyarilar.append(f"⚠️ TABLA {row['MinYatakSicaklik']:.0f}°C+ GEREKLİ (Mevcut: {donanim['max_yatak_sicaklik']}°C)")
+        else:
+            if row["MinYatakSicaklik"] > 30:
+                uyarilar.append(f"⚠️ TABLA {row['MinYatakSicaklik']:.0f}°C+ GEREKLİ")
+        
+        # 6. Bowden zorluğu
+        if donanim['bowden'] and row["BowdenZorlugu"] > 70:
+            uyarilar.append("⚠️ BOWDEN İLE ZOR")
+        
+        # 7. Nozzle ölçüsü
+        if donanim['nozzle_olculeri']:
+            max_nozzle = max(donanim['nozzle_olculeri'])
+            if max_nozzle < row["MinNozzle"]:
+                uyarilar.append(f"⚠️ MIN {row['MinNozzle']:.1f}mm NOZZLE GEREKLİ")
+        
+        # 8. Tabla uyumluluğu
+        en_iyi_tabla_uyum = 0
+        for tabla in donanim['tablalar']:
+            tabla_uyum = row[tabla['kolon']]
+            if tabla_uyum > en_iyi_tabla_uyum:
+                en_iyi_tabla_uyum = tabla_uyum
+        
+        if en_iyi_tabla_uyum < 50:
+            uyarilar.append("⚠️ TABLA UYUMLULUĞU DÜŞÜK")
+        
+        if not uyarilar:
+            return "✅ Sorunsuz"
+        return " | ".join(uyarilar)
+    
+    # Uyarıları hesapla
+    df["Uyarilar"] = df.apply(lambda row: olustur_uyari(row, donanim), axis=1)
+    
     # Sırala
     df = df.sort_values("Skor", ascending=False)
     
     # SONUÇLAR
     st.success("✅ Değerlendirme tamamlandı!")
     
-    # Top 10
+    # Top 10 - Uyarılar ile birlikte
     st.header("🏆 En Uygun 10 Filament")
     
-    top10 = df.head(10)[["Filament", "Skor_Normalize", "EnIyiTablaIsim"]].copy()
-    top10.columns = ["Filament", "Uyumluluk (%)", "En İyi Tabla"]
+    top10 = df.head(10)[["Filament", "Skor_Normalize", "EnIyiTablaIsim", "Uyarilar"]].copy()
+    top10.columns = ["Filament", "Uyumluluk (%)", "En İyi Tabla", "Uyarılar"]
     
     st.dataframe(
         top10,
         use_container_width=True,
-        hide_index=True
+        hide_index=True,
+        column_config={
+            "Uyarılar": st.column_config.TextColumn(width="large")
+        }
     )
     
-    # Detaylı tablo
+    # Detaylı tablo - Uyarılar ile birlikte
     st.header("📋 Tüm Filamentler")
     
     detay_kolonlar = ["Filament", "Skor_Normalize", "IsiDayanim", "YukTasima", 
-                      "BaskiKolayligi", "StringOlusumu", "EnIyiTablaIsim"]
+                      "BaskiKolayligi", "StringOlusumu", "EnIyiTablaIsim", "Uyarilar"]
     detay_df = df[detay_kolonlar].copy()
-    detay_df.columns = ["Filament", "Uyumluluk (%)", "Isı", "Yük", "Kolay", "String", "Tabla"]
+    detay_df.columns = ["Filament", "Uyumluluk (%)", "Isı", "Yük", "Kolay", "String", "Tabla", "Uyarılar"]
     
     st.dataframe(
         detay_df,
         use_container_width=True,
-        hide_index=True
+        hide_index=True,
+        column_config={
+            "Uyarılar": st.column_config.TextColumn(width="large")
+        }
     )
     
-    # CSV indirme
-    csv = df.to_csv(index=False).encode('utf-8-sig')
+    # CSV indirme - Uyarılar dahil
+    csv_df = df[["Filament", "Skor_Normalize", "Uyarilar", "EnIyiTablaIsim"]].copy()
+    csv_df.columns = ["Filament", "Uyumluluk (%)", "Uyarılar", "En İyi Tabla"]
+    csv = csv_df.to_csv(index=False).encode('utf-8-sig')
     st.download_button(
         label="💾 CSV Olarak İndir",
         data=csv,
