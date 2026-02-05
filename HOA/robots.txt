@@ -1,0 +1,42 @@
+# robots.txt - ÇORLU LİHKAB Web Sitesi
+# Google, Bing ve diğer arama motorları için crawler yönergeleri
+
+# Tüm crawlers için kurallar
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.py$
+
+# Sitemap konumu
+Sitemap: https://www.corlulihkab.com/sitemap.xml
+
+# Crawl delay (arama motorlarına sunucuyu fazla yüklememe tavsiyesi)
+Crawl-delay: 1
+
+# Google spesifik
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+# Bing spesifik
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Diğer botlar
+User-agent: msnbot
+Allow: /
+
+User-agent: slurp
+Allow: /
+
+# Kötü botları engelle
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /

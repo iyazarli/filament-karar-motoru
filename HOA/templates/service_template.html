@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="section">
+            <h2>{{ title }}</h2>
+            
+            <div class="info-box">
+                <p>{{ description }}</p>
+            </div>
+
+            {% if documents %}
+            <div class="section">
+                <h3>Gerekli Belgeler</h3>
+                <ul style="margin-left: 20px;">
+                    {% for doc in documents %}
+                    <li>{{ doc }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if steps %}
+            <div class="section">
+                <h3>İşlem Adımları</h3>
+                <ol style="margin-left: 20px;">
+                    {% for step in steps %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+            {% endif %}
+
+            {% if duration %}
+            <div class="section">
+                <h3>İşlem Süresi ve Ücret</h3>
+                <div class="info-box">
+                    <p><strong>Tahmini İşlem Süresi:</strong> {{ duration }}</p>
+                    <p style="margin-top: 10px;"><strong>Ücret Tablosu Için:</strong> <a href="{{ url_for('islem_ucretleri') }}">İşlem Ücretleri Sayfasını Ziyaret Edin</a></p>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="section" style="text-align: center;">
+                <a href="{{ url_for('online_basvuru') }}" class="cta-button">Bu Hizmet İçin Başvuru Yap</a>
+                <a href="{{ url_for('index') }}" class="cta-button" style="background: #666; margin-left: 10px;">Tüm Hizmetlere Dön</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

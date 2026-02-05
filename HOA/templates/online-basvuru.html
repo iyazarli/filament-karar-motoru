@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Online Başvuru - ÇORLU LİHKAB{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="section">
+            <h2>Online Başvuru Formu</h2>
+            <p>Aşağıdaki formu doldurarak hizmet talebinde bulunabilirsiniz. En kısa sürede sizinle iletişime geçilecektir.</p>
+        </div>
+
+        <div class="section">
+            <form method="POST" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="ad_soyad">Ad Soyad *</label>
+                    <input type="text" id="ad_soyad" name="ad_soyad" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tc_kimlik">TC Kimlik No</label>
+                        <input type="text" id="tc_kimlik" name="tc_kimlik">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefon">Telefon *</label>
+                        <input type="tel" id="telefon" name="telefon" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-posta *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="adres">Adres</label>
+                    <input type="text" id="adres" name="adres">
+                </div>
+
+                <div class="form-group">
+                    <label for="hizmet">Hizmet Seçimi *</label>
+                    <select id="hizmet" name="hizmet" required>
+                        <option value="">-- Lütfen Seçiniz --</option>
+                        <option value="aplikasyon">Aplikasyon</option>
+                        <option value="cins-degisikligi">Cins Değişikliği</option>
+                        <option value="birlestirme">Birleştirme</option>
+                        <option value="irtifak-hakki-tesisi">İrtifak Hakkı Tesisi</option>
+                        <option value="irtifak-hakki-terkini">İrtifak Hakkı Terkini</option>
+                        <option value="bagimsiz-bolum-yer-gosterme">Bağımsız Bölüm Yer Gösterme</option>
+                        <option value="parsel-yer-gosterme">Parsel Yer Gösterme</option>
+                        <option value="roperli-kroki">Röperli Kroki</option>
+                        <option value="yola-terk">Yola Terk / Yoldan İhdas / Ayırma</option>
+                        <option value="parselasyon">Parselasyon</option>
+                        <option value="sinirlandirma-haritalari">Sınırlandırma Haritaları</option>
+                        <option value="hatali-bagimsiz-bolum">Hatalı Bağımsız Bölüm Düzeltme</option>
+                        <option value="hatali-blok">Hatalı Blok Düzeltmesi</option>
+                        <option value="imar-plani">İmar Planı Uygulamaları</option>
+                        <option value="yapi-aplikasyonu">Yapı Aplikasyonu / Vaziyet Planı</option>
+                        <option value="tus-uygulamalari">TUS Uygulamaları</option>
+                        <option value="konum-belirleme">Konum Belirleme</option>
+                        <option value="halihazir-harita">Halihazır Harita Yapımı</option>
+                        <option value="plankote">Plankote</option>
+                        <option value="yol-profil">Yol Profil Çalışmaları</option>
+                        <option value="harita-plan-ornegi">Harita Plan Örneği (Kadastro Çapı)</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="il">İl</label>
+                        <input type="text" id="il" name="il" value="Tekirdağ">
+                    </div>
+                    <div class="form-group">
+                        <label for="ilce">İlçe</label>
+                        <input type="text" id="ilce" name="ilce" placeholder="Çorlu, Marmara Ereğlisi, ...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="aciklama">Açıklama</label>
+                    <textarea id="aciklama" name="aciklama" placeholder="İşleminiz hakkında detaylı bilgi veriniz..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="dosya">Dosya Ekle (Maks. 24MB)</label>
+                    <input type="file" id="dosya" name="dosya" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xlsx,.xls">
+                    <small style="color: #666; margin-top: 5px; display: block;">İzin verilen formatlar: PDF, DOC, DOCX, JPG, PNG, XLSX, XLS</small>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center;">
+                        <input type="checkbox" name="kvkk" required>
+                        <span style="margin-left: 10px;">Kişisel verilerim işlenmesine izin veriyorum. (KVKK)*</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%;">Başvuruyu Gönder</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h3>Sıkça Sorulan Sorular</h3>
+            <div class="info-box">
+                <p><strong>Başvurum ne kadar sürede cevaplandırılır?</strong></p>
+                <p>Başvurunuz 24 saat içinde cevaplandırılacaktır.</p>
+                <p style="margin-top: 15px;"><strong>Başvuru ücretli midir?</strong></p>
+                <p>Başvuru tamamen ücretsizdir. Fiyat teklifini aldıktan sonra karar verirsiniz.</p>
+                <p style="margin-top: 15px;"><strong>Farklı ilçelerde hizmet alabilir miyim?</strong></p>
+                <p>Evet, Tekirdağ ilinin tüm ilçelerinde hizmet vermekteyiz.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

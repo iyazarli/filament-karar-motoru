@@ -1,0 +1,1400 @@
+/* ============================================================
+   ÇORLU LİHKAB - Web Sitesi Stil Dosyası
+   ============================================================
+   
+   AMAÇ:
+   ÇORLU LİHKAB'ın resmi web sitesinin tüm görsel stilini tanımlar.
+   Profesyonel, responsive ve hızlı yüklenen bir tasarım sağlar.
+   
+   TASARIM:
+   - Ana Renk: Mavi (#4285F4) - Profesyonel ve güvenilir
+   - Yan Renk: Turuncu (#FF6600) - Vurgu ve dikkat çekici
+   - Tipografi: Open Sans (Google Fonts) - Modern ve okunaklı
+   
+   TEKNOLOJİ:
+   - CSS3: Flexbox, Grid, CSS Variables
+   - Responsive: Mobile-first approach
+   - Performance: Minimal !important, CSS variables için kolay tema değişimi
+   
+   DOSYA YAPISI:
+   1. CSS Variables & Reset (30-100 satır)
+      → Renkler, boşluklar, font boyutları ve z-index değerleri merkezi tanım
+      → Değiştirmek istediğinizde tüm site otomatik değişir
+   
+   2. Global Styles (satır ~110)
+      → Tüm elementi etkileyen kurallar (body, html)
+   
+   3. Header & Navigation (satır ~150)
+      → Top bar (iletişim), header (logo), nav menu (menü)
+   
+   4. Main Content & Cards (satır ~350)
+      → Hero slider, cards, forms, content styling
+   
+   5. Footer (satır ~600)
+      → Footer bölümleri ve copyright
+   
+   6. Responsive Design (satır ~700)
+      → Tablet (@media max-width: 768px)
+      → Mobile (@media max-width: 480px)
+   
+   RENK ŞEMASI:
+   Primary: #4285F4 (Google Blue) - Başlıklar, butonlar, vurgular
+   Dark: #2962CB (Darker Blue) - Hover, links, dark elements
+   Orange: #FF6600 - Vurgu noktaları, subtitle, accent
+   Text Dark: #2c3e50 - Ana yazı metni
+   Text Light: #666 - Açıklamalar, yardımcı metin
+   Gray: #f5f5f5 - Arka plan, light sections
+   
+   SPACING (Tutarlı boşluklar):
+   --spacing-xs: 5px (çok küçük detaylar)
+   --spacing-sm: 10px (button padding)
+   --spacing-md: 15px (bölüm içi boşluk)
+   --spacing-lg: 20px (bölümler arası boşluk)
+   --spacing-xl: 40px (ana bölüm padding'i)
+   
+   FONT SIZES:
+   --font-sm: 13px (metadata, small text)
+   --font-base: 16px (body text)
+   --font-lg: 18px (subheadings)
+   --font-xl: 28px (main headings)
+   
+   Z-INDEX KATMANLAR:
+   --z-sticky: 100 (sticky header/nav)
+   --z-modal: 1000 (modals, dropdowns)
+   
+   GELIŞTIRME İPUÇLARİ:
+   - Yeni renkler eklemek için :root'a CSS variable ekleyin
+   - Border radius'u değiştirmek için --border-radius variable oluşturun
+   - Animasyon hızını kontrol etmek için --transition variable ekleyin
+   
+   ============================================================ */
+
+/* ============================================================
+   1. CSS VARIABLES & RESET
+   ============================================================
+   
+   Bu bölüm tüm renk, boşluk ve boyut tanımlarını merkezi olarak tuttuğu
+   için, tasarımı değiştirmek çok kolaydır. Tüm sayfalar bu değişkenleri
+   kullanır, bu nedenle buraya bir değişiklik tüm siteyi etkiler.
+   
+   RESET: Tüm elementler sıfırlanarak tutarlı başlangıç sağlanır.
+   
+*/
+
+:root {
+    /* ========== ANA RENKLER ========== */
+    /* Primary: Ana renk - logo, butonlar, başlıklar, vurgular */
+    --primary-blue: #4285F4;
+    
+    /* Dark: Hover states, dark elements, stronger emphasis */
+    --dark-blue: #2962CB;
+    
+    /* Accent: Subtitle, vurgu noktaları, dikkat çekici alanlar */
+    --orange: #FF6600;
+    
+    /* ========== METIN RENKLERİ ========== */
+    /* Ana yazı metni - başlıklar, paragraflar */
+    --dark-text: #2c3e50;
+    
+    /* Açıklama metni - yardımcı bilgi, metadata */
+    --light-text: #666;
+    
+    /* ========== ARKA PLAN RENKLERİ ========== */
+    /* Sayfa arka planı ve light sections */
+    --light-gray: #f5f5f5;
+    
+    /* Beyaz bölümler, cards, modal'lar */
+    --white: #ffffff;
+    
+    /* ========== BORDER VE DIVIDER ========== */
+    /* Çizgiler, borders, divider'lar */
+    --border-gray: #e0e0e0;
+    
+    /* ========== BOŞLUK ÖLÇÜLERİ (SPACING) ========== */
+    /* Küçük detaylar ve tight spacing */
+    --spacing-xs: 5px;
+    
+    /* Button padding, small gaps */
+    --spacing-sm: 10px;
+    
+    /* Bölüm içinde boşluk */
+    --spacing-md: 15px;
+    
+    /* Bölümler arasında standart boşluk */
+    --spacing-lg: 20px;
+    
+    /* Ana section padding ve large gaps */
+    --spacing-xl: 40px;
+    
+    /* ========== FONT BOYUTLARI ========== */
+    /* Metadata, small labels */
+    --font-sm: 13px;
+    
+    /* Body text, paragraflar (varsayılan) */
+    --font-base: 16px;
+    
+    /* Subheadings, section başlıkları */
+    --font-lg: 18px;
+    
+    /* Main headings, h1 */
+    --font-xl: 28px;
+    
+    /* ========== KATMANLAR (Z-INDEX) ========== */
+    /* Sticky header/nav için - always visible */
+    --z-sticky: 100;
+    
+    /* Modals, dropdowns, overlays - on top of everything */
+    --z-modal: 1000;
+}
+
+/* ============================================================
+   GLOBAL RESET
+   ============================================================
+   Tüm elementleri sıfırla ve tutarlı başlangıç kuralları belirle.
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Sayfa smooth scroll yapacak şekilde ayarla */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Body ve genel metin ayarları */
+body {
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--dark-text);
+    line-height: 1.6;
+    background-color: var(--light-gray);
+}
+
+/* ============================================================
+   2. TOP BAR (İletişim Çubuğu)
+   ============================================================
+   Sayfanın en üstünde telefon ve email bilgisini gösterir.
+   Mavi arka planla fark oluşturur.
+   
+   Yapı:
+   .top-bar: Dış container (mavi arka plan)
+   .top-bar .container: İç container (max-width)
+   .contact-bar: İletişim bilgileri wrapper
+   .contact-bar span: Telefon ve email metni
+*/
+
+/* Header */
+.top-bar {
+    background: var(--primary-blue);
+    color: white;
+    padding: 15px 0;
+    font-size: 13px;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.contact-bar {
+    text-align: center;
+    flex: 1;
+}
+
+.contact-bar span {
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   SOSYAL MEDYA İKONLARİ
+   ============================================================
+   Sosyal medya butonları (Facebook, Twitter, Instagram).
+   
+   NOT: Tasarım nedenleryle aktif değil (display: none).
+   İsteğinizde aktifleştirebilirsiniz.
+   
+   Aktifleştirmek için: display: none !important; satırını kaldırın
+*/
+
+/* Social Icons - Saklı */
+.social-icon {
+    display: none !important;
+}
+
+/* Facebook - Mavi renk (#1877F2) */
+.social-icon.social-facebook {
+    background: #1877F2;
+    color: white;
+}
+
+.social-icon.social-facebook:hover {
+    background: #0A66C2;
+    transform: scale(1.1);
+}
+
+/* Twitter/X - Siyah renk */
+.social-icon.social-twitter {
+    background: #000000;
+    color: white;
+}
+
+.social-icon.social-twitter:hover {
+    background: #333333;
+    transform: scale(1.1);
+}
+
+/* Instagram - Gradient renk */
+.social-icon.social-instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+}
+
+.social-icon.social-instagram:hover {
+    filter: brightness(0.9);
+    transform: scale(1.1);
+}
+
+/* ============================================================
+   3. HEADER (Logo ve İşletme Adı)
+   ============================================================
+   Sitenin üst kısmında bulunan logo ve işletme ismini gösterir.
+   
+   Yapı:
+   .header: Ana container (beyaz arka plan)
+   .logo: Logo bölümü (daire + metinler)
+   .logo-circle: Mavi daire ve "LİHKAB" yazısı
+   .logo-text: İşletme adı ve slogan
+   
+   Tasarım:
+   - Logo daire: Gradient blue (#4285F4 → #2962CB)
+   - İşletme adı: Siyah, bold, 28px
+   - Slogan: Turuncu, 20px
+   - Açıklama: Gri, 13px
+*/
+
+.header {
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header .container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Logo daire - Mavi gradient arka plan */
+.logo-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+    border: 3px solid var(--border-gray);
+    flex-shrink: 0;
+}
+
+/* Logo başlık - İşletme adı */
+.logo-text h1 {
+    color: var(--dark-text);
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Logo subtitle - "İlker BOSTANCI" turuncu renkte */
+.logo h1 .subtitle {
+    color: var(--orange);
+    font-size: 20px;
+    font-weight: 600;
+    display: block;
+}
+
+/* Logo slogan - "Lisanslı Harita Kadastro Bürosu" */
+.logo-text p, .logo p {
+    color: #666;
+    font-size: 13px;
+    margin: 5px 0 0 0;
+}
+
+/* ============================================================
+   NAVIGATION MENU (Ana Menü)
+   ============================================================
+   Sayfanın başlıca bölümlerine erişim sağlayan sticky menü.
+   
+   Özellikleri:
+   - Sticky: Sayfa scroll'lanırken sabit kalır (top: 0)
+   - Dropdown: Ana menü altında alt menüler vardır
+   - Responsive: Mobilde hamburger menü olabilir (future)
+   
+   Yapı:
+   .nav-menu: Menü container'ı
+   .nav-menu ul li: Menü öğeleri
+   .nav-menu ul li a: Bağlantılar
+   .nav-menu ul ul: Dropdown alt menüler
+   
+   Menü Öğeleri:
+   1. ANASAYFA - Direkt link
+   2. HİZMETLERİMİZ - Dropdown (6 item)
+   3. DİĞER HİZMETLERİMİZ - Dropdown (15 item)
+   4. PERSONELİMİZ - Direkt link
+   5. İŞLEM ÜCRETLERİ - Direkt link
+   6. İLETİŞİM - Dropdown (2 item)
+*/
+
+/* Navigation */
+/* Navigation Menu */
+.nav-menu {
+    background: white;
+    border-top: 2px solid var(--border-gray);
+    border-bottom: 2px solid var(--border-gray);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+.nav-menu ul li {
+    position: relative;
+}
+
+.nav-menu ul li a {
+    display: block;
+    color: var(--dark-text);
+    text-decoration: none;
+    padding: 18px 24px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-menu ul li a:hover,
+.nav-menu ul li a.active {
+    color: var(--primary-blue);
+    background: #f8f9fa;
+}
+
+/* Dropdown Styling */
+.nav-menu .dropdown {
+    position: relative;
+}
+
+.nav-menu .dropdown > a {
+    display: block;
+    color: var(--dark-text);
+    text-decoration: none;
+    padding: 18px 24px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-menu .dropdown > a:hover {
+    color: var(--primary-blue);
+    background: #f8f9fa;
+}
+
+.nav-menu .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid var(--border-gray);
+    border-top: 2px solid var(--primary-blue);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 280px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.nav-menu .dropdown-menu.open {
+    display: block;
+}
+
+.nav-menu .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.nav-menu .dropdown-menu li {
+    position: static;
+}
+
+.nav-menu .dropdown-menu li a {
+    padding: 12px 20px;
+    text-transform: none;
+    text-align: left;
+    color: var(--dark-text);
+    font-weight: 500;
+    font-size: 13px;
+    display: block;
+}
+
+.nav-menu .dropdown-menu li a:hover {
+    background: #e3f2fd;
+    color: var(--primary-blue);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Slider */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    background: white;
+}
+
+.slider-content-wrapper {
+    display: flex;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.slider-left {
+    flex: 0 0 40%;
+    padding: 40px;
+    background: white;
+}
+
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.service-item a {
+    color: #333;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    letter-spacing: 0.5px;
+}
+
+.service-item a:hover {
+    color: var(--primary-blue);
+}
+
+.service-list h3 {
+    color: #333;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.5px;
+}
+
+.service-list h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block;
+    width: 100%;
+}
+
+.service-list h3 a:hover {
+    color: var(--primary-blue);
+}
+
+.slider-right {
+    flex: 0 0 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.nav-menu ul li ul li {
+    width: 100%;
+    margin: 0;
+}
+
+.nav-menu ul li ul li a {
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.nav-menu ul li ul li a:hover {
+    background: #e3f2fd;
+}
+
+.map-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.slider-arrow {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.slider-arrow:hover {
+    background: rgba(0,0,0,0.8);
+}
+
+/* CTA Banner */
+.cta-banner {
+    background: #2c2c2c;
+    color: white;
+    padding: 30px 0;
+}
+
+.cta-banner .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.cta-content {
+    flex: 1;
+}
+
+.cta-content p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.cta-content .highlight {
+    color: #4285F4;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.cta-subtext {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.btn-cta {
+    background: #4285F4;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.btn-cta:hover {
+    background: #2962CB;
+}
+
+/* Hero Section (Old) */
+.hero {
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Main Content */
+.main-content {
+    padding: 40px 0;
+    background: white;
+}
+
+.section {
+    margin-bottom: 50px;
+}
+
+.section h2 {
+    color: #2c3e50;
+    font-size: 32px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #4A90E2;
+    padding-bottom: 10px;
+}
+
+.section h3 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin: 20px 0 10px;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.service-card {
+    background: #f9f9f9;
+    border-left: 4px solid var(--primary-blue);
+    padding: 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-left-color: var(--dark-blue);
+}
+
+.service-card h4 {
+    color: var(--dark-text);
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.service-card a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.service-card a:hover {
+    color: var(--dark-blue);
+}
+
+/* Info Box */
+.info-box {
+    background: #e3f2fd;
+    border-left: 4px solid var(--primary-blue);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+/* CTA Button */
+.cta-button {
+    display: inline-block;
+    background: var(--primary-blue);
+    color: white;
+    padding: 15px 40px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin: 20px 0;
+}
+
+.cta-button:hover {
+    background: var(--dark-blue);
+    transform: translateY(-2px);
+}
+
+/* Contact Info */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.contact-item {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.contact-item h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.contact-item p {
+    margin: 5px 0;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Checkbox label styling */
+.form-group input[type="checkbox"] + span,
+.form-group label:has(input[type="checkbox"]) {
+    display: inline-flex;
+    align-items: center;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: auto;
+    padding: 0;
+}
+
+/* Form Optimizations */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.btn {
+    background: var(--primary-blue);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background: var(--dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Sidebar */
+.sidebar {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.sidebar h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    color: #4A90E2;
+}
+
+/* Footer */
+.footer {
+    background: #2c3e50;
+    color: white;
+    padding: 40px 0 20px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-section h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin: 8px 0;
+}
+
+.footer-section a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #4A90E2;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 14px;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (Mobil ve Tablet Optimizasyonu)
+   ============================================================
+   
+   Breakpoints:
+   - Desktop: 1200px ve üzeri (varsayılan, hiç sınır yok)
+   - Tablet: 769px - 1199px (@media max-width: 768px)
+   - Mobile: 480px - 768px (@media max-width: 480px)
+   - Small Mobile: 320px - 479px (@media max-width: 320px)
+   
+   Mobile-First Yaklaşımı:
+   - Önce mobile (480px ve daha küçük) için stil yaz
+   - Sonra tablet ve desktop için @media ekle
+   - Bu dosyada ters yapıldı (desktop first), o yüzden max-width kullanıyoruz
+   
+   Optimizasyonlar:
+   1. Padding/Margin: Mobilde daha küçük
+   2. Font Boyutları: Mobilde okunaklı olacak şekilde
+   3. Grid/Flex: Mobilde tek sütun
+   4. Hamburger Menü: Gelecekte uygulanabilir
+   5. Touch-friendly: Butonlar minimum 44x44px
+*/
+
+/* ============================================================
+   TABLET RESPONSIVE (Max Width: 768px)
+   ============================================================
+   iPad ve benzer tablet cihazlar için optimizasyonlar.
+   Navigasyon menu'sü flex-direction column'a döner.
+*/
+
+@media (max-width: 768px) {
+    /* ===== Header & Navigation ===== */
+    .header .container {
+        padding: 10px 15px;
+    }
+    
+    .logo-circle {
+        width: 70px;
+        height: 70px;
+        font-size: 11px;
+    }
+    
+    .logo-text h1 {
+        font-size: 22px;
+    }
+    
+    .logo h1 .subtitle {
+        font-size: 16px;
+    }
+    
+    .logo-text p {
+        font-size: 12px;
+    }
+    
+    /* Navigation menu'sü dikey olur */
+    .nav-menu ul {
+        flex-direction: column;
+    }
+    
+    .nav-menu ul li a {
+        padding: 12px 20px;
+    }
+    
+    /* Dropdown menüler görünür hale gelir mobile'da */
+    .nav-menu .dropdown-menu {
+        position: static;
+        display: none;
+        border: none;
+        border-left: 3px solid var(--primary-blue);
+        box-shadow: none;
+        background: #f5f5f5;
+    }
+
+    .nav-menu .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    
+    /* ===== Cards & Grid ===== */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card {
+        margin: 15px auto;
+    }
+    
+    /* ===== Content Areas ===== */
+    .container {
+        padding: 20px 15px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    /* ===== Forms ===== */
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    input, textarea, select {
+        font-size: 16px; /* Prevents zoom on focus in iOS */
+        padding: 12px;
+    }
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE (Max Width: 480px)
+   ============================================================
+   Telefonlar ve small tablet'ler için optimize edilmiş görünüm.
+   Daha agresif boşluk ve font boyutu azaltmaları.
+*/
+
+@media (max-width: 480px) {
+    /* ===== Global ===== */
+    * {
+        /* Padding azalt */
+    }
+    
+    body {
+        font-size: 14px;
+    }
+    
+    /* ===== Top Bar ===== */
+    .top-bar {
+        padding: 10px 0;
+        font-size: 12px;
+    }
+    
+    .top-bar .container {
+        padding: 0 10px;
+    }
+    
+    .contact-bar span {
+        display: block;
+        line-height: 1.4;
+    }
+    
+    /* ===== Header ===== */
+    .header .container {
+        padding: 8px 10px;
+    }
+    
+    .logo {
+        gap: 10px;
+    }
+    
+    .logo-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 10px;
+    }
+    
+    .logo-text h1 {
+        font-size: 18px;
+        line-height: 1.1;
+    }
+    
+    .logo h1 .subtitle {
+        font-size: 14px;
+    }
+    
+    .logo-text p {
+        font-size: 11px;
+        margin-top: 3px;
+    }
+    
+    /* ===== Navigation Menu ===== */
+    .nav-menu ul li a {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .nav-menu ul li ul {
+        max-width: 100%;
+    }
+    
+    .nav-menu ul li ul li a {
+        padding: 10px;
+        font-size: 12px;
+    }
+    
+    /* ===== Hero Section ===== */
+    .hero {
+        padding: 20px 10px;
+    }
+    
+    .hero h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .hero p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+        min-height: 44px; /* Touch-friendly */
+    }
+    
+    /* ===== Cards ===== */
+    .card {
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+    }
+    
+    .card h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    
+    .card p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    
+    /* ===== Forms ===== */
+    .form-group {
+        margin-bottom: 12px;
+    }
+    
+    label {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+    
+    input, textarea, select {
+        font-size: 16px; /* iOS zoom prevention */
+        padding: 11px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        width: 100%;
+    }
+    
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    /* ===== Content ===== */
+    .container {
+        padding: 15px 10px;
+    }
+    
+    h1 {
+        font-size: 22px;
+    }
+    
+    h2 {
+        font-size: 19px;
+        margin: 20px 0 10px;
+    }
+    
+    h3 {
+        font-size: 16px;
+        margin: 15px 0 8px;
+    }
+    
+    p {
+        margin-bottom: 12px;
+        line-height: 1.6;
+    }
+    
+    /* ===== Lists ===== */
+    ul, ol {
+        margin-left: 20px;
+        margin-bottom: 15px;
+    }
+    
+    li {
+        margin-bottom: 8px;
+    }
+    
+    /* ===== Footer ===== */
+    .footer {
+        padding: 25px 0 15px;
+        margin-top: 30px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .footer-section {
+        text-align: left;
+    }
+    
+    .footer-section h4 {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    
+    .footer-section p, .footer-section ul li {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+    
+    .footer-bottom {
+        font-size: 12px;
+        padding: 15px 10px;
+    }
+    
+    /* ===== Tables (eğer varsa) ===== */
+    table {
+        font-size: 12px;
+        overflow-x: auto;
+        display: block;
+    }
+    
+    th, td {
+        padding: 8px;
+    }
+    
+    /* ===== Images ===== */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    /* ===== Alert Messages ===== */
+    .alert {
+        padding: 12px;
+        margin: 15px 0;
+        font-size: 13px;
+    }
+}
+
+/* ============================================================
+   EXTRA SMALL DEVICES (Max Width: 320px)
+   ============================================================
+   Very small phones (iPhone SE, eski cihazlar) için extreme durumlar.
+*/
+
+@media (max-width: 320px) {
+    .logo-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 9px;
+    }
+    
+    .logo-text h1 {
+        font-size: 16px;
+    }
+    
+    .logo h1 .subtitle {
+        font-size: 12px;
+    }
+    
+    .hero h1 {
+        font-size: 20px;
+    }
+    
+    .hero p {
+        font-size: 13px;
+    }
+    
+    .nav-menu ul li a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
+
+/* ============================================================
+   LANDSCAPE MODE OPTİMİZASYONU
+   ============================================================
+   Telefon landscape modda çalışırken optimize edilmiş görünüm.
+*/
+
+@media (max-width: 768px) and (orientation: landscape) {
+    .logo {
+        gap: 8px;
+    }
+    
+    .logo-circle {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .logo-text h1 {
+        font-size: 18px;
+    }
+    
+    .nav-menu ul li a {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+    
+    .hero h1 {
+        font-size: 24px;
+    }
+}
+
+/* ============================================================
+   PRINT STİLLERİ
+   ============================================================
+   Sayfayı yazıcıdan yazdırırken optimize edilmiş görünüm.
+*/
+
+@media print {
+    /* Navigation ve footer'ı yazıda gizle */
+    .nav-menu, .top-bar, .footer {
+        display: none;
+    }
+    
+    body {
+        font-size: 12pt;
+        color: black;
+        background: white;
+    }
+    
+    a {
+        text-decoration: underline;
+    }
+    
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+    
+    p, li {
+        widow: 3;
+        orphan: 3;
+    }
+}
+
+/* Tekirdağ Map Placeholder */
+.map-image {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    display: block;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
