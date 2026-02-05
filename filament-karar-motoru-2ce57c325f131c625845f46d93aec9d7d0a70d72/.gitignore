@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Mac
+.DS_Store
+.localized
+
+# Large files
+*.dmg
+*.app/
+Visual Studio Code.app/
+Claude.dmg
+
+# IDE
+.vscode/
+.idea/
+
+# Outputs
+*.csv
+filament_secim_sonucu.csv
+
+# Temp
+*.bak
+~$*
