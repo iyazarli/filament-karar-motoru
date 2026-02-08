@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service_name }} - BİLECİK LİHKAB{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="section">
+            <h2>{{ service_name }}</h2>
+            <div class="service-content">
+                {{ content|safe }}
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center;">
+            <a href="{{ url_for('online_basvuru') }}" class="cta-button">Hemen Başvurun</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

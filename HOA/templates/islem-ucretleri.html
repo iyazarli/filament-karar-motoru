@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}İşlem Ücretleri - BİLECİK LİHKAB{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="section">
+            <h2>İşlem Ücretleri</h2>
+            <p>Hizmetlerimizin ücretleri aşağıda belirtilmiştir. Detaylı bilgi için bizimle iletişime geçebilirsiniz.</p>
+        </div>
+
+        <div class="section">
+            <h3>Temel Hizmetler</h3>
+            <div class="info-box">
+                <ul style="margin-left: 20px;">
+                    <li>Aplikasyon: İlgili tarifeye göre</li>
+                    <li>Cins Değişikliği: İlgili tarifeye göre</li>
+                    <li>Birleştirme: İlgili tarifeye göre</li>
+                    <li>İrtifak Hakkı: İlgili tarifeye göre</li>
+                    <li>Bağımsız Bölüm Yer Gösterme: İlgili tarifeye göre</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center;">
+            <p>Detaylı fiyat teklifi için bizimle iletişime geçin.</p>
+            <a href="{{ url_for('iletisim') }}" class="cta-button">İletişime Geçin</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
