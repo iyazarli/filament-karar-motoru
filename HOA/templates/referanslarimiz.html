@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Referanslarımız - BİLECİK LİHKAB{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="section">
+            <h2>Referanslarımız</h2>
+            <p>BİLECİK LİHKAB olarak, Türkiye'nin önde gelen kurumlarına ve şirketlerine hizmet vermenin gururunu yaşıyoruz.</p>
+        </div>
+
+        <div class="section">
+            <div class="references-grid">
+                <div class="reference-item">
+                    <img src="/static/img/references/turkish-airlines.png" alt="Turkish Airlines" onerror="this.src='https://via.placeholder.com/200x100?text=Turkish+Airlines'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/koc-holding.png" alt="Koç Holding" onerror="this.src='https://via.placeholder.com/200x100?text=Koç+Holding'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/arcelik.png" alt="Arçelik" onerror="this.src='https://via.placeholder.com/200x100?text=Arçelik'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/mercedes-benz.png" alt="Mercedes-Benz Türk" onerror="this.src='https://via.placeholder.com/200x100?text=Mercedes-Benz'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/sabanci-holding.png" alt="Sabancı Holding" onerror="this.src='https://via.placeholder.com/200x100?text=Sabancı+Holding'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/turk-telekom.png" alt="Türk Telekom" onerror="this.src='https://via.placeholder.com/200x100?text=Türk+Telekom'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/anadolu-grubu.png" alt="Anadolu Grubu" onerror="this.src='https://via.placeholder.com/200x100?text=Anadolu+Grubu'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/eczacibasi.png" alt="Eczacıbaşı" onerror="this.src='https://via.placeholder.com/200x100?text=Eczacıbaşı'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/dogus-holding.png" alt="Doğuş Holding" onerror="this.src='https://via.placeholder.com/200x100?text=Doğuş+Holding'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/bim.png" alt="BİM" onerror="this.src='https://via.placeholder.com/200x100?text=BİM'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/petrol-ofisi.png" alt="Petrol Ofisi" onerror="this.src='https://via.placeholder.com/200x100?text=Petrol+Ofisi'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/bmc.png" alt="BMC" onerror="this.src='https://via.placeholder.com/200x100?text=BMC'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/tusas.png" alt="TUSAŞ" onerror="this.src='https://via.placeholder.com/200x100?text=TUSAŞ'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/ford-otosan.png" alt="Ford Otosan" onerror="this.src='https://via.placeholder.com/200x100?text=Ford+Otosan'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/vestel.png" alt="Vestel" onerror="this.src='https://via.placeholder.com/200x100?text=Vestel'">
+                </div>
+                <div class="reference-item">
+                    <img src="/static/img/references/tofas.png" alt="Tofaş" onerror="this.src='https://via.placeholder.com/200x100?text=Tofaş'">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="info-box">
+                <h3>Neden Bizi Tercih Ediyorlar?</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>25+ yıllık deneyim ve uzmanlık</li>
+                    <li>Zamanında ve hatasız hizmet garantisi</li>
+                    <li>Modern teknoloji ve ekipman kullanımı</li>
+                    <li>7/24 müşteri destek hizmeti</li>
+                    <li>Profesyonel ve deneyimli kadro</li>
+                    <li>Rekabetçi fiyatlandırma</li>
+                    <li>Gizlilik ve güvenlik garantisi</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center;">
+            <p style="font-size: 18px; margin-bottom: 20px;">Siz de referanslarımıza katılmak ister misiniz?</p>
+            <a href="{{ url_for('online_basvuru') }}" class="cta-button">Hemen Başvurun</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}İletişim - BİLECİK LİHKAB{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="section">
+            <h2>İletişim</h2>
+            <p>Bize ulaşmak için aşağıdaki bilgileri kullanabilir veya formu doldurabilirsiniz.</p>
+        </div>
+
+        <div class="section">
+            <h3>İletişim Bilgileri</h3>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h4>Telefon</h4>
+                    <p><strong>Ofis:</strong> <a href="tel:+902283141401" style="color: inherit; text-decoration: none;">0228 314 14 01</a></p>
+                    <p><strong>Cep:</strong> <a href="tel:+905403141401" style="color: inherit; text-decoration: none;">0540 314 14 01</a></p>
+                    <p>Pazartesi - Cuma: 09:00 - 18:00</p>
+                    <p>Cumartesi: 09:00 - 13:00</p>
+                </div>
+
+                <div class="contact-item">
+                    <h4>E-posta</h4>
+                    <p><strong><a href="mailto:mail@bileciklihkab.com" style="color: inherit; text-decoration: none;">mail@bileciklihkab.com</a></strong></p>
+                    <p><strong><a href="mailto:info@aksuharita.com" style="color: inherit; text-decoration: none;">info@aksuharita.com</a></strong></p>
+                    <p><strong><a href="mailto:hasanonur@aksuharita.com" style="color: inherit; text-decoration: none;">hasaonur@aksuharita.com</a></strong></p>
+                </div>
+
+                <div class="contact-item">
+                    <h4>Adres</h4>
+                    <p><strong>Kasımpaşa Mh. Hükümet Cd.</strong></p>
+                    <p><strong>Belediye İşhanı No:2/105</strong></p>
+                    <p><strong>Bozüyük / BİLECİK</strong></p>
+                    <p>Haftanın tüm günü ziyaret edilebilir.</p>
+                    <p>Ön randevu istenmektedir.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Konum</h3>
+            <div style="max-width: 100%; margin: 20px auto;">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.5!2d30.0352!3d39.9101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDU0JzM2LjQiTiAzMMKwMDInMDYuNyJF!5e0!3m2!1str!2str!4v1234567890!5m2!1str!2str" 
+                    width="100%" 
+                    height="450" 
+                    style="border: 1px solid #ddd; border-radius: 8px;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <br/>
+                <small style="display: block; text-align: center; margin-top: 10px;">
+                    <a href="https://maps.app.goo.gl/iLTnfUjvi1dXem1LA" target="_blank" style="color: #4A90E2;">Google Maps'te Görüntüle</a>
+                </small>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Mesaj Gönderin</h3>
+            <form method="POST" style="max-width: 600px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="ad_soyad">Ad Soyad *</label>
+                    <input type="text" id="ad_soyad" name="ad_soyad" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">E-posta *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefon">Telefon</label>
+                        <input type="tel" id="telefon" name="telefon">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="baslik">Konu *</label>
+                    <input type="text" id="baslik" name="baslik" placeholder="Mesajınızın konusu..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mesaj">Mesaj *</label>
+                    <textarea id="mesaj" name="mesaj" placeholder="Mesajınızı yazınız..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%;">Gönder</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h3>Hizmet Bölgelerimiz</h3>
+            <div class="info-box">
+                <p><strong>BİLECİK LİHKAB, aşağıdaki ilçelerde hizmet vermektedir:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Bilecik Merkez</li>
+                    <li>Bozüyük</li>
+                    <li>Gölpazarı</li>
+                    <li>İnhisar</li>
+                    <li>Osmaneli</li>
+                    <li>Pazaryeri</li>
+                    <li>Söğüt</li>
+                    <li>Yenipazar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

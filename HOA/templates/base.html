@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BİLECİK LİHKAB{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <!-- Logo: Desktop 100x100px, Tablet 80x80px, Mobile 70x70px -->
+                <img src="/static/img/lihkab-logo.png" alt="LIHKAB Logo" class="logo-image" width="100" height="100">
+                <div class="logo-text">
+                    <h1>Bilecik Lisanslı Harita Kadastro Mühendislik Bürosu <span class="subtitle">Hasan Onur AKSU</span></h1>
+                    <p>Lisanslı Harita Kadastro Mühendislik Bürosu</p>
+                </div>
+            </div>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="/">ANASAYFA</a></li>
+            
+            <li class="dropdown">
+                <a href="#">HİZMETLERİMİZ ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/aplikasyon">Aplikasyon</a></li>
+                    <li><a href="/cins-degisikligi">Cins Değişikliği</a></li>
+                    <li><a href="/birlestirme">Birleştirme</a></li>
+                    <li><a href="/irtifak-hakki-tesisi">İrtifak Hakkı Tesisi</a></li>
+                    <li><a href="/irtifak-hakki-terkini">İrtifak Hakkı Terkini</a></li>
+                    <li><a href="/bagimsiz-bolum-yer-gosterme">Bağımsız Bölüm Yer Gösterme</a></li>
+                </ul>
+            </li>
+            
+            <li class="dropdown">
+                <a href="#">DİĞER HİZMETLERİMİZ ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/parsel-yer-gosterme">Parsel Yer Gösterme</a></li>
+                    <li><a href="/roperli-kroki">Röperli Kroki</a></li>
+                    <li><a href="/yola-terk-yoldan-ihdas-ayirma">Yola Terk/Yoldan İhdas</a></li>
+                    <li><a href="/parselasyon">Parselasyon</a></li>
+                    <li><a href="/sinirlandirma-haritalari">Sınırlandırma Haritaları</a></li>
+                    <li><a href="/hatali-bagimsiz-bolum-duzeltme">Hatalı Bağ. Bölüm Düzeltme</a></li>
+                    <li><a href="/hatali-blok-duzeltmesi">Hatalı Blok Düzeltmesi</a></li>
+                    <li><a href="/imar-plani-uygulamalari">İmar Planı Uygulamaları</a></li>
+                    <li><a href="/yapi-aplikasyonu-vaziyet-plani">Yapı Aplikasyonu Vaziyet Planı</a></li>
+                    <li><a href="/tus-uygulamalari">TUS Uygulamaları</a></li>
+                    <li><a href="/konum-belirleme">Konum Belirleme</a></li>
+                    <li><a href="/halihazir-harita-yapimi">Halihazır Harita Yapımı</a></li>
+                    <li><a href="/plankote">Plankote</a></li>
+                    <li><a href="/yol-profil-calismalari">Yol Profil Çalışmaları</a></li>
+                    <li><a href="/harita-plan-ornegi">Harita Plan Örneği</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="/personelimiz">PERSONELİMİZ</a></li>
+            <li><a href="/referanslarimiz">REFERANSLARIMIZ</a></li>
+            <li><a href="/islem-ucretleri">İŞLEM ÜCRETLERİ</a></li>
+            <li><a href="/online-basvuru">BAŞVURU</a></li>
+            
+            <li class="dropdown">
+                <a href="#">İLETİŞİM ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/iletisim">İletişim Formu</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BİLECİK LİHKAB</h4>
+                    <p>Hasan Onur AKSU</p>
+                    <p>Lisanslı Harita Kadastro Mühendislik Bürosu</p>
+                    <p style="margin-top: 10px;">1998'den beri profesyonel hizmet</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <p>📞 Ofis: <a href="tel:+902283141401" style="color: inherit; text-decoration: none;">0228 314 14 01</a></p>
+                    <p>📱 Cep: <a href="tel:+905403141401" style="color: inherit; text-decoration: none;">0540 314 14 01</a></p>
+                    <p>📧 E-posta: <a href="mailto:mail@bileciklihkab.com" style="color: inherit; text-decoration: none;">mail@bileciklihkab.com</a></p>
+                    <p style="margin-left: 24px;"><a href="mailto:info@aksuharita.com" style="color: inherit; text-decoration: none;">info@aksuharita.com</a></p>
+                    <p style="margin-left: 24px;"><a href="mailto:hasanonur@aksuharita.com" style="color: inherit; text-decoration: none;">hasanonur@aksuharita.com</a></p>
+                    <p>📍 Adres: Kasımpaşa Mh. Hükümet Cd. Belediye İşhanı No:2/105</p>
+                    <p style="margin-left: 24px;">Bozüyük / BİLECİK</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <p><a href="/">Anasayfa</a></p>
+                    <p><a href="/online-basvuru">Online Başvuru</a></p>
+                    <p><a href="/personelimiz">Personelimiz</a></p>
+                    <p><a href="/iletisim">İletişim</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hizmet Bölgeleri</h4>
+                    <p>Bilecik Merkez, Bozüyük, Gölpazarı, İnhisar, Osmaneli, Pazaryeri, Söğüt, Yenipazar</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 BİLECİK LİHKAB. Tüm Hakları Saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/slider.js" defer></script>
+    
+    <!-- Dropdown Toggle Script -->
+    <script>
+        document.querySelectorAll('.nav-menu .dropdown > a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdown = this.parentElement;
+                const menu = dropdown.querySelector('.dropdown-menu');
+                
+                // Diğer açık dropdown'ları kapat
+                document.querySelectorAll('.nav-menu .dropdown-menu.open').forEach(m => {
+                    if (m !== menu) m.classList.remove('open');
+                });
+                
+                // Bu dropdown'ı toggle et
+                menu.classList.toggle('open');
+            });
+        });
+        
+        // Sayfa başka yerine tıklanırsa dropdown'ları kapat
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-menu .dropdown')) {
+                document.querySelectorAll('.nav-menu .dropdown-menu').forEach(m => {
+                    m.classList.remove('open');
+                });
+            }
+        });
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('mobile-active');
+        }
+    </script>
+</body>
+</html>
