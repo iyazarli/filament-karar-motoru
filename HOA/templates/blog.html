@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - Harita Kadastro Rehberi | Bilecik LIHKAB{% endblock %}
+
+{% block description %}Bilecik ve ilçelerinde harita kadastro mühendisliği hakkında bilgi makaleleri. Aplikasyon, cins değişikliği, parselasyon ve daha fazlası.{% endblock %}
+
+{% block keywords %}bilecik harita blog, kadastro rehberi, aplikasyon nedir, parselasyon nasıl yapılır, bilecik gayrimenkul{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+    <h1 style="text-align: center; color: var(--primary-blue); margin-bottom: 10px;">📝 Harita Kadastro Rehberi</h1>
+    <p style="text-align: center; color: var(--light-text); margin-bottom: 40px;">Bilecik ve ilçelerinde harita mühendisliği hakkında bilmeniz gerekenler</p>
+    
+    <div class="blog-grid">
+        {% for post in posts %}
+        <article class="blog-card">
+            <div class="blog-card-image">
+                <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                <span class="blog-category">{{ post.category }}</span>
+            </div>
+            <div class="blog-card-content">
+                <h2><a href="{{ url_for('blog_post', slug=post.slug) }}">{{ post.title }}</a></h2>
+                <div class="blog-meta">
+                    <span>📅 {{ post.date.strftime('%d %B %Y') }}</span>
+                </div>
+                <p>{{ post.excerpt }}</p>
+                <a href="{{ url_for('blog_post', slug=post.slug) }}" class="blog-read-more">Devamını Oku →</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.blog-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.blog-card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-category {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary-blue);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.blog-card-content {
+    padding: 20px;
+}
+
+.blog-card-content h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.blog-card-content h2 a {
+    color: var(--dark-text);
+    text-decoration: none;
+}
+
+.blog-card-content h2 a:hover {
+    color: var(--primary-blue);
+}
+
+.blog-meta {
+    font-size: 13px;
+    color: var(--light-text);
+    margin-bottom: 15px;
+}
+
+.blog-card-content p {
+    color: var(--light-text);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.blog-read-more {
+    display: inline-block;
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.blog-read-more:hover {
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

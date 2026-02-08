@@ -32,6 +32,11 @@
     <meta name="geo.position" content="40.150549;29.983059">
     <meta name="ICBM" content="40.150549, 29.983059">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/lihkab-logo.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/lihkab-logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/lihkab-logo.png') }}">
+    
     <!-- Structured Data (JSON-LD) -->
     {% block structured_data %}
     <script type="application/ld+json">
@@ -78,11 +83,13 @@
         <div class="container">
             <div class="logo">
                 <!-- Logo: Desktop 100x100px, Tablet 80x80px, Mobile 70x70px -->
-                <img src="/static/img/lihkab-logo.png" alt="LIHKAB Logo" class="logo-image" width="100" height="100">
-                <div class="logo-text">
-                    <h1>Bilecik Lisanslı Harita Kadastro Mühendislik Bürosu <span class="subtitle">Hasan Onur AKSU</span></h1>
-                    <p>Lisanslı Harita Kadastro Mühendislik Bürosu</p>
-                </div>
+                <a href="/" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                    <img src="/static/img/lihkab-logo.png" alt="LIHKAB Logo" class="logo-image" width="100" height="100">
+                    <div class="logo-text">
+                        <h1>Bilecik Lisanslı Harita Kadastro Mühendislik Bürosu <span class="subtitle">Hasan Onur AKSU</span></h1>
+                        <p>Lisanslı Harita Kadastro Mühendislik Bürosu</p>
+                    </div>
+                </a>
             </div>
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
         </div>
@@ -170,6 +177,7 @@
                 <div class="footer-section">
                     <h4>Hızlı Linkler</h4>
                     <p><a href="/">Anasayfa</a></p>
+                    <p><a href="/blog">Blog</a></p>
                     <p><a href="/online-basvuru">Online Başvuru</a></p>
                     <p><a href="/personelimiz">Personelimiz</a></p>
                     <p><a href="/iletisim">İletişim</a></p>

@@ -31,6 +31,7 @@ from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 import os
 import os
+from blog_posts import get_all_posts, get_post_by_slug, get_recent_posts
 
 # Flask uygulaması başlat
 app = Flask(__name__)
@@ -153,6 +154,11 @@ def robots():
 def sitemap():
     """SEO - sitemap.xml dosyasını sun"""
     return app.send_static_file('sitemap.xml')
+
+@app.route('/favicon.ico')
+def favicon():
+    """Favicon - tarayıcı sekmesi ikonu"""
+    return app.send_static_file('favicon.ico')
 
 
 # ============================================================
@@ -349,6 +355,28 @@ def personelimiz():
 def referanslarimiz():
     """Referanslarımız sayfası - Çalıştığımız büyük şirketlerin logolarını gösterir."""
     return render_template('referanslarimiz.html')
+
+
+# ============================================================
+# BLOG SAYFASI
+# ============================================================
+
+@app.route('/blog')
+def blog():
+    """Blog ana sayfası - Tüm makaleleri listeler"""
+    posts = get_all_posts()
+    return render_template('blog.html', posts=posts)
+
+@app.route('/blog/<slug>')
+def blog_post(slug):
+    """Blog yazısı detay sayfası"""
+    post = get_post_by_slug(slug)
+    if not post:
+        flash('Blog yazısı bulunamadı.', 'error')
+        return redirect(url_for('blog'))
+    
+    recent_posts = get_recent_posts(5)
+    return render_template('blog_post.html', post=post, recent_posts=recent_posts)
 
 
 # ============================================================

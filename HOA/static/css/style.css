@@ -944,13 +944,14 @@ body {
 
 .footer-section h4 {
     margin-bottom: 15px;
-    font-size: 18px;
+    font-size: 16px;
     color: #4A90E2;
 }
 
 .footer-section p {
-    margin: 8px 0;
-    line-height: 1.6;
+    margin: 6px 0;
+    line-height: 1.5;
+    font-size: 13px;
 }
 
 .footer-section ul {
@@ -975,7 +976,7 @@ body {
     text-align: center;
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.2);
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /* ============================================================
