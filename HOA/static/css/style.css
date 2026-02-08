@@ -806,6 +806,8 @@ body {
     background: #f9f9f9;
     padding: 20px;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .contact-item h4 {
@@ -815,6 +817,8 @@ body {
 
 .contact-item p {
     margin: 5px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Forms */
