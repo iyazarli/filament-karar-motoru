@@ -141,6 +141,21 @@ def index():
 
 
 # ============================================================
+# SEO ROUTES - robots.txt ve sitemap.xml
+# ============================================================
+
+@app.route('/robots.txt')
+def robots():
+    """SEO - robots.txt dosyasını sun"""
+    return app.send_static_file('robots.txt')
+
+@app.route('/sitemap.xml')
+def sitemap():
+    """SEO - sitemap.xml dosyasını sun"""
+    return app.send_static_file('sitemap.xml')
+
+
+# ============================================================
 # HİZMETLER SAYFASI ROTALARI (HİZMETLERİMİZ)
 # ============================================================
 

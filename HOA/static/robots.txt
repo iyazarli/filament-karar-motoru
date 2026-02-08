@@ -1,0 +1,19 @@
+# robots.txt - Bilecik LIHKAB Harita Mühendislik Web Sitesi
+# Google ve diğer arama motorları için optimize edilmiştir
+
+User-agent: *
+Allow: /
+Allow: /static/
+Allow: /static/css/
+Allow: /static/img/
+
+# Sitemap konumu
+Sitemap: https://www.bileciklihkab.com/sitemap.xml
+
+# Önemli: Tüm hizmet sayfaları arama motorlarına açıktır
+# Bilecik, Osmaneli, Pazaryeri, Gölpazarı, Söğüt, Bozüyük, İnhisar, Yenipazar için
+# harita mühendislik hizmetleri aranabilir durumda
+
+# İndekslenmesin (örnek - şu an tüm sayfalara izin veriyoruz)
+# Disallow: /admin/
+# Disallow: /uploads/

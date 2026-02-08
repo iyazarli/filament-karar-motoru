@@ -3,7 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}BİLECİK LİHKAB{% endblock %}</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}Bilecik LIHKAB - Harita Kadastro Mühendislik Bürosu | Osmaneli, Pazaryeri, Gölpazarı{% endblock %}</title>
+    <meta name="description" content="{% block description %}Bilecik ve ilçelerinde (Osmaneli, Pazaryeri, Gölpazarı, Söğüt, Bozüyük) profesyonel harita kadastro mühendislik hizmetleri. Aplikasyon, cins değişikliği, parselasyon, irtifak hakkı ve 20+ hizmet.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}bilecik harita mühendisi, osmaneli lihkab, pazaryeri kadastro, gölpazarı aplikasyon, söğüt harita, bozüyük parselasyon, bilecik cins değişikliği, bilecik irtifak hakkı{% endblock %}">
+    <meta name="author" content="Bilecik LIHKAB - Hasan Onur AKSU">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{% block canonical %}https://www.bileciklihkab.com/{% endblock %}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{% block og_url %}https://www.bileciklihkab.com/{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Bilecik LIHKAB - Harita Kadastro Mühendislik{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Bilecik ve ilçelerinde profesyonel harita kadastro hizmetleri. 7/24 online başvuru imkanı.{% endblock %}">
+    <meta property="og:image" content="https://www.bileciklihkab.com/static/img/lihkab-logo.png">
+    <meta property="og:locale" content="tr_TR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Bilecik LIHKAB{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Bilecik harita kadastro mühendislik hizmetleri{% endblock %}">
+    <meta name="twitter:image" content="https://www.bileciklihkab.com/static/img/lihkab-logo.png">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="TR-11">
+    <meta name="geo.placename" content="Bilecik, Türkiye">
+    <meta name="geo.position" content="40.150549;29.983059">
+    <meta name="ICBM" content="40.150549, 29.983059">
+    
+    <!-- Structured Data (JSON-LD) -->
+    {% block structured_data %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Bilecik LIHKAB - Hasan Onur AKSU",
+      "image": "https://www.bileciklihkab.com/static/img/lihkab-logo.png",
+      "description": "Bilecik ve ilçelerinde profesyonel harita kadastro mühendislik hizmetleri",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bilecik",
+        "addressRegion": "Bilecik",
+        "addressCountry": "TR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "40.150549",
+        "longitude": "29.983059"
+      },
+      "areaServed": [
+        "Bilecik",
+        "Osmaneli",
+        "Pazaryeri",
+        "Gölpazarı",
+        "Söğüt",
+        "Bozüyük",
+        "İnhisar",
+        "Yenipazar"
+      ],
+      "priceRange": "₺₺",
+      "openingHours": "Mo-Fr 09:00-18:00",
+      "telephone": "+90",
+      "url": "https://www.bileciklihkab.com"
+    }
+    </script>
+    {% endblock %}
+    
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
@@ -121,7 +187,55 @@
         </div>
     </footer>
 
+    <!-- AI Chatbot Widget -->
+    <div id="ai-chatbot-container">
+        <button id="chatbot-toggle" class="chatbot-toggle" onclick="toggleChatbot()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="chatbot-badge">AI</span>
+        </button>
+        
+        <div id="chatbot-window" class="chatbot-window" style="display: none;">
+            <div class="chatbot-header">
+                <div class="chatbot-header-content">
+                    <div class="chatbot-avatar">🤖</div>
+                    <div>
+                        <h4>Bilecik LIHKAB Asistan</h4>
+                        <span class="chatbot-status">Çevrimiçi</span>
+                    </div>
+                </div>
+                <button class="chatbot-close" onclick="toggleChatbot()">×</button>
+            </div>
+            
+            <div id="chatbot-messages" class="chatbot-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        Merhaba! Ben Bilecik LIHKAB yapay zeka asistanıyım. Size nasıl yardımcı olabilirim?
+                        <div class="quick-actions">
+                            <button onclick="sendQuickMessage('Aplikasyon hizmeti hakkında bilgi')">📍 Aplikasyon</button>
+                            <button onclick="sendQuickMessage('Cins değişikliği fiyatı')">💰 Fiyat Bilgisi</button>
+                            <button onclick="sendQuickMessage('Randevu almak istiyorum')">📅 Randevu</button>
+                            <button onclick="sendQuickMessage('Tüm hizmetlerinizi göster')">📋 Hizmetler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-input-container">
+                <input type="text" id="chatbot-input" placeholder="Mesajınızı yazın..." onkeypress="handleChatKeyPress(event)">
+                <button class="chatbot-send" onclick="sendChatMessage()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="/static/js/slider.js" defer></script>
+    <script src="/static/js/chatbot.js" defer></script>
     
     <!-- Dropdown Toggle Script -->
     <script>
